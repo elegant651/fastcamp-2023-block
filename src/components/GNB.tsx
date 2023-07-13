@@ -1,50 +1,82 @@
 'use client';
 import { AccountCircle } from "@mui/icons-material";
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
-import { useState } from "react";
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, createTheme } from "@mui/material";
+import { useRef, useState } from "react";
+import Image from "next/image";
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuList from '@mui/material/MenuList';
+import Stack from '@mui/material/Stack';
+import { ThemeProvider } from "styled-components";
 
 const GNB = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(false)
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setOpen((prevOpen) => !prevOpen);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return;
+    }
+
+    setOpen(false);
+  };  
   
   return (
     <Box>
-      <AppBar>
-        <Toolbar>
-          <Box flexGrow={1}><h4>Exchange App</h4></Box>
+        <AppBar sx={{ backgroundColor: '#000' }}>
+          <Toolbar>
+            <Box display='flex' alignItems='center' flexGrow={1}>
+              <Box mr='5px'><Image src="/logo.png" alt="logo" width={100} height={70} /></Box>
+              <h4>Exchange App</h4>
+            </Box>
 
-          <Box>
-            <IconButton onClick={handleMenu} color="inherit">
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>My account</MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </AppBar>
+            <Box>
+              <IconButton onClick={handleMenu} color="inherit" ref={anchorRef}>
+                <AccountCircle />
+              </IconButton>
+              <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                placement="bottom-start"
+                transition
+                disablePortal
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{
+                      transformOrigin: 'left top',
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList
+                          autoFocusItem={open}
+                          id="composition-menu"
+                          aria-labelledby="composition-button"
+                        >
+                          <MenuItem onClick={handleClose}>Profile</MenuItem>
+                          <MenuItem onClick={handleClose}>My account</MenuItem>
+                          <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </Box>
+          </Toolbar>
+        </AppBar>
     </Box>
   )
 

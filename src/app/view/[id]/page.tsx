@@ -11,10 +11,9 @@ import ChatDialog from '@/containers/view/ChatDialog'
 export default function View({ params }: { params: { id: number }}) {
   return (
     <main className={styles.main}>
-      <h1>View {params.id}</h1>
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <ChartInfo />
+          <ChartInfo assetId={params.id} />
         </Grid>
         <Grid item xs={4}>
           <OrderbookList />
