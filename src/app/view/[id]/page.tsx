@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import styles from './page.module.css'
 import { Grid } from '@mui/material'
 import ChartInfo from '@/containers/view/ChartInfo'
@@ -13,7 +12,7 @@ export default function View({ params }: { params: { id: number }}) {
     <main className={styles.main}>
       <Grid container spacing={2}>
         <Grid item xs={7}>
-          {/* <ChartInfo assetId={params.id} /> */}
+          <ChartInfo assetId={params.id} />
         </Grid>
         <Grid item xs={5}>
           <OrderbookList />
