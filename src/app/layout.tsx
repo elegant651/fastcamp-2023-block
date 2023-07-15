@@ -7,6 +7,7 @@ import '@fontsource/roboto/700.css';
 import GNB from '@/components/GNB'
 import { createTheme } from '@mui/material'
 import { ThemeProvider } from 'styled-components'
+import { SnackbarProvider } from 'notistack';
 
 
 const theme = createTheme({
@@ -32,8 +33,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeProvider theme={theme}>
-          <GNB />
-          {children}
+          <SnackbarProvider maxSnack={3}>
+            <GNB />
+            {children}
+          </SnackbarProvider>
         </ThemeProvider>
       </body>
     </html>

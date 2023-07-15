@@ -12,10 +12,10 @@ export default function View({ params }: { params: { id: number }}) {
   return (
     <main className={styles.main}>
       <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <ChartInfo assetId={params.id} />
+        <Grid item xs={7}>
+          {/* <ChartInfo assetId={params.id} /> */}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           <OrderbookList />
         </Grid>
         <Grid item xs={4}>
