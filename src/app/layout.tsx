@@ -8,7 +8,8 @@ import GNB from '@/components/GNB'
 import { createTheme } from '@mui/material'
 import { ThemeProvider } from 'styled-components'
 import { SnackbarProvider } from 'notistack';
-
+import { Web3ReactProvider } from '@web3-react/core';
+import { getProvider } from '@/utils/provider';
 
 const theme = createTheme({
   typography: {
@@ -34,8 +35,10 @@ export default function RootLayout({
       <body>
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={3}>
-            <GNB />
-            {children}
+            <Web3ReactProvider getLibrary={getProvider}>
+              <GNB />
+              {children}
+            </Web3ReactProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </body>

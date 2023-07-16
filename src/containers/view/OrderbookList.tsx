@@ -84,7 +84,7 @@ const OrderbookList = () => {
 
 const OrderList = styled(List)`
   width: 300px;
-  height: 300px;
+  height: 360px;
   border: 1px solid #b2b2b2;
   border-radius: 10px;
   overflow: auto;

@@ -58,7 +58,7 @@ const Chart: React.FC<LineChartProps> = ({data, maxY, minY}) => {
 const Wrapper = styled(Card)`
   padding: 10px;
   width: 700px;
-  height: 500px;
+  height: 300px;
 `
 
 export default Chart;
